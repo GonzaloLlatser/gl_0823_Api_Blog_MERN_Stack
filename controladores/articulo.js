@@ -1,4 +1,5 @@
 const validator = require("validator");
+const Articulo = require("../modelos/Articulo");
 
 const prueba = (req, res) => {
 
@@ -36,7 +37,7 @@ const crear = (req, res) => {
     try {
 
         let validar_titulo = !validator.isEmpty(parametros.titulo) &&
-                              validator.isLength(parametros.titulo, { min: 5, max: undefined });
+            validator.isLength(parametros.titulo, { min: 5, max: undefined });
 
         let validar_contenido = !validator.isEmpty(parametros.contenido);
 
@@ -52,20 +53,31 @@ const crear = (req, res) => {
     }
 
     //Crear el objeto a guardar
+    const articulo = new Articulo(parametros);
 
-    //asignarle los valores al objeto basado en el modelo(manuel o automatico)
+    //Asignarle los valores al objeto basado en el modelo(manuel o automatico)
+    //Manual:
+    //articulo.titulo = parametros.titulo;
+    //Automatico: Incluye "parametros" en la const articulo. 
 
     //Guardar el articulo en la base de datos
+    articulo.save()
 
     //Devolver resultados
 
+    .then(articuloGuardado => {
 
-
-
-
-    return res.status(200).json({
-        mensaje: "Accion de guardar",
-        parametros
+      return res.status(200).json({
+        status: "success",
+        articulo: articuloGuardado,
+        mensaje: "Articulo creado con exito!!"
+      });
+    })
+    .catch(error => {
+      return res.status(400).json({
+        status: "error",
+        mensaje: "No se ha guardado el articulo",
+      });
     });
 }
 
