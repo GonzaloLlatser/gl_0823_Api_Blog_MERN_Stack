@@ -20,6 +20,31 @@ app.use(cors());
 app.use(express.json());
 
 //Crea rutas
+app.get("/probando", (req, res) => {
+    console.log("Se ha ejecutado el endpoint probando");
+
+    return res.status(200).json([{
+        curso: "Master en React",
+        autor: "Udemy",
+        url: "udemy.com"
+    },
+
+    {
+        curso: "Master en React",
+        autor: "Udemy",
+        url: "udemy.com"
+    }
+
+    ]);
+});
+
+app.get("/", (req, res) => {
+
+    return res.status(200).send(
+        "<h1> Empezando a crear una api rest con node </h1>"
+    );
+});
+
 
 //Crear servidor y escuchar peticiones http
 app.listen(puerto, () => {
