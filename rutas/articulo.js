@@ -12,6 +12,8 @@ router.get("/curso", ArticuloControlador.curso);
 router.post("/crear", ArticuloControlador.crear);
 router.get("/articulos/:ultimos?", ArticuloControlador.listar);
 router.get("/articulo/:id", ArticuloControlador.uno);
+router.delete("/articulo/:id", ArticuloControlador.borrar);
+
 
 
 

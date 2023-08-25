@@ -143,6 +143,34 @@ const uno = async (req, res) => {
     }
 };
 
+//METODO PARA ELIMINAR SOLO UN DATO //
+
+const borrar = async (req, res) => {
+    try {
+        let articulo_id = req.params.id;
+
+        const articuloBorrado = await Articulo.findOneAndDelete({ _id: articulo_id });
+
+        if (!articuloBorrado) {
+            return res.status(404).json({
+                status: "error",
+                mensaje: "El artículo no fue encontrado para ser borrado."
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            articulo: articuloBorrado,
+            mensaje: "Artículo borrado exitosamente."
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            mensaje: "Error al borrar el artículo."
+        });
+    }
+};
+
 
 
         module.exports = {
@@ -150,5 +178,6 @@ const uno = async (req, res) => {
             curso,
             crear,
             listar,
-            uno
+            uno,
+            borrar
         }
