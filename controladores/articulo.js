@@ -87,8 +87,8 @@ const listar = async (req, res) => {
 
     try {
         const articulos = await Articulo.find({})
-                                        .limit(2)
-                                        .sort({fecha: -1});
+            .limit(2)
+            .sort({ fecha: -1 });
 
         if (!articulos || articulos.length === 0) {
             return res.status(404).json({
@@ -100,10 +100,10 @@ const listar = async (req, res) => {
         return res.status(200).json({
             status: "success",
             parametro: req.params.ultimos,
-            contador:articulos.length,
+            contador: articulos.length,
             articulos
         });
-        
+
     } catch (error) {
         return res.status(500).json({
             status: "error",
@@ -112,13 +112,43 @@ const listar = async (req, res) => {
         });
     }
 };
+//METODO PARA CONSEGUIR SOLO UN DATO //
+
+const uno = async (req, res) => {
+    try {
+        // Recoger un id por la url
+        let id = req.params.id;
+
+        // Buscar el articulo
+        const articulo = await Articulo.findById(id);
+
+        // Si no existe devolver error
+        if (!articulo) {
+            return res.status(404).json({
+                status: "error",
+                mensaje: "No se ha encontrado el artículo"
+            });
+        }
+
+        // Devolver resultado
+        return res.status(200).json({
+            status: "success",
+            articulo
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            mensaje: "Ha ocurrido un error en el servidor"
+        });
+    }
+};
 
 
 
-
-module.exports = {
-    prueba,
-    curso,
-    crear,
-    listar
-}
+        module.exports = {
+            prueba,
+            curso,
+            crear,
+            listar,
+            uno
+        }
