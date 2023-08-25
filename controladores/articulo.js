@@ -147,9 +147,9 @@ const uno = async (req, res) => {
 
 const borrar = async (req, res) => {
     try {
-        let articulo_id = req.params.id;
+        let articuloId = req.params.id;
 
-        const articuloBorrado = await Articulo.findOneAndDelete({ _id: articulo_id });
+        const articuloBorrado = await Articulo.findOneAndDelete({ _id: articuloId });
 
         if (!articuloBorrado) {
             return res.status(404).json({
@@ -171,13 +171,63 @@ const borrar = async (req, res) => {
     }
 };
 
+//METODO PARA EDITAR UN DATO //
 
+const editar = async (req, res) => {
+    try {
+        // Recoger el Id
+        let articuloId = req.params.id;
 
-        module.exports = {
-            prueba,
-            curso,
-            crear,
-            listar,
-            uno,
-            borrar
+        // Recoger los datos del body
+        let parametros = req.body;
+
+        // Validar datos
+        let validar_titulo = !validator.isEmpty(parametros.titulo) &&
+            validator.isLength(parametros.titulo, { min: 5, max: undefined });
+
+        let validar_contenido = !validator.isEmpty(parametros.contenido);
+
+        if (!validar_titulo || !validar_contenido) {
+            throw new Error("No se ha validado la información!!");
         }
+
+        // Buscar y actualizar el artículo
+        const articuloActualizado = await Articulo.findOneAndUpdate(
+            { _id: articuloId },
+            parametros,
+            { new: true } // Para que devuelva el documento actualizado
+        );
+
+        if (!articuloActualizado) {
+            return res.status(404).json({
+                status: "error",
+                mensaje: "El artículo no fue encontrado para ser actualizado."
+            });
+        }
+
+        // Devolver respuesta
+        return res.status(200).json({
+            status: "success",
+            articulo: articuloActualizado
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            mensaje: "Error al actualizar el artículo."
+        });
+    }
+};
+
+
+
+
+module.exports = {
+    prueba,
+    curso,
+    crear,
+    listar,
+    uno,
+    borrar,
+    editar
+}
