@@ -26,7 +26,7 @@ const curso = (req, res) => {
     ]);
 };
 
-//Crea un nuevo metodo
+// METODO PARA CREAR UN NUEVO DATO //
 
 const crear = (req, res) => {
 
@@ -63,26 +63,58 @@ const crear = (req, res) => {
     //Guardar el articulo en la base de datos
     articulo.save()
 
-    //Devolver resultados
+        //Devolver resultados
 
-    .then(articuloGuardado => {
+        .then(articuloGuardado => {
 
-      return res.status(200).json({
-        status: "success",
-        articulo: articuloGuardado,
-        mensaje: "Articulo creado con exito!!"
-      });
-    })
-    .catch(error => {
-      return res.status(400).json({
-        status: "error",
-        mensaje: "No se ha guardado el articulo",
-      });
-    });
+            return res.status(200).json({
+                status: "success",
+                articulo: articuloGuardado,
+                mensaje: "Articulo creado con exito!!"
+            });
+        })
+        .catch(error => {
+            return res.status(400).json({
+                status: "error",
+                mensaje: "No se ha guardado el articulo"
+            });
+        });
 }
+//METODO PARA CONSEGUIR LOS DATOS ALMACENADOS //
+//Los almaceno en una cariable, para luego poder trabajar o filtrar esa informacion
+
+const listar = async (req, res) => {
+
+    try {
+        const articulos = await Articulo.find({});
+
+        if (!articulos || articulos.length === 0) {
+            return res.status(404).json({
+                status: "error",
+                mensaje: "No se han encontrado artículos"
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            articulos
+        });
+        
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            mensaje: "Ha ocurrido un error",
+            error
+        });
+    }
+};
+
+
+
 
 module.exports = {
     prueba,
     curso,
-    crear
+    crear,
+    listar
 }
