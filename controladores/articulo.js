@@ -1,5 +1,6 @@
-const validator = require("validator");
+const { validarArticulo } = require("../helpers/validar")
 const Articulo = require("../modelos/Articulo");
+
 
 const prueba = (req, res) => {
 
@@ -34,17 +35,9 @@ const crear = (req, res) => {
     let parametros = req.body;
 
     //Validar los datos (libreria validator)
+
     try {
-
-        let validar_titulo = !validator.isEmpty(parametros.titulo) &&
-            validator.isLength(parametros.titulo, { min: 5, max: undefined });
-
-        let validar_contenido = !validator.isEmpty(parametros.contenido);
-
-        if (!validar_titulo || !validar_contenido) {
-            throw new Error("No se ha validado la informacion !!");
-        }
-
+        validarArticulo(parametros);
     } catch (error) {
         return res.status(400).json({
             status: "error",
@@ -80,7 +73,7 @@ const crear = (req, res) => {
             });
         });
 }
-//METODO PARA CONSEGUIR LOS DATOS ALMACENADOS //
+// METODO PARA CONSEGUIR LOS DATOS ALMACENADOS //
 //Los almaceno en una cariable, para luego poder trabajar o filtrar esa informacion
 
 const listar = async (req, res) => {
@@ -112,7 +105,7 @@ const listar = async (req, res) => {
         });
     }
 };
-//METODO PARA CONSEGUIR SOLO UN DATO //
+// METODO PARA CONSEGUIR SOLO UN DATO //
 
 const uno = async (req, res) => {
     try {
@@ -143,7 +136,7 @@ const uno = async (req, res) => {
     }
 };
 
-//METODO PARA ELIMINAR SOLO UN DATO //
+// METODO PARA ELIMINAR SOLO UN DATO //
 
 const borrar = async (req, res) => {
     try {
@@ -171,7 +164,7 @@ const borrar = async (req, res) => {
     }
 };
 
-//METODO PARA EDITAR UN DATO //
+// METODO PARA EDITAR UN DATO //
 
 const editar = async (req, res) => {
     try {
@@ -182,13 +175,13 @@ const editar = async (req, res) => {
         let parametros = req.body;
 
         // Validar datos
-        let validar_titulo = !validator.isEmpty(parametros.titulo) &&
-            validator.isLength(parametros.titulo, { min: 5, max: undefined });
-
-        let validar_contenido = !validator.isEmpty(parametros.contenido);
-
-        if (!validar_titulo || !validar_contenido) {
-            throw new Error("No se ha validado la información!!");
+        try {
+            validarArticulo(parametros);
+        } catch (error) {
+            return res.status(404).json({
+                status: "error",
+                mensaje: "Faltan datos por enviar"
+            });
         }
 
         // Buscar y actualizar el artículo
