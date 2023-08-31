@@ -2,9 +2,7 @@
 
 ## Tecnologías utilizadas
 
-<img src="https://img.shields.io/badge/MongoDB-%2347A248?style=for-the-badge&logo=mongodb&labelColor=black
-" style="max-width: 100%;"> <img src="https://img.shields.io/badge/javascript-EFD81D?style=for-the-badge&amp;logo=javascript&amp;logoColor=black" style="max-width: 100%;"> <img src="https://img.shields.io/badge/Node%20js-%23339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=green&color=black"> <img src="https://img.shields.io/badge/POSTMAN-FF6C37?style=for-the-badge&logo=postman&logoColor=white"> <img src="https://img.shields.io/badge/Express%20js-%23f5e90a?style=for-the-badge&logo=express&labelColor=black
-" alt="" style="max-width: 100%;"> 
+<img src="https://img.shields.io/badge/MongoDB-%2347A248?style=for-the-badge&logo=mongodb&labelColor=black" style="max-width: 100%;"> <img src="https://img.shields.io/badge/javascript-EFD81D?style=for-the-badge&amp;logo=javascript&amp;logoColor=black" style="max-width: 100%;"> <img src="https://img.shields.io/badge/Node%20js-%23339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=green&color=black"> <img src="https://img.shields.io/badge/POSTMAN-FF6C37?style=for-the-badge&logo=postman&logoColor=white"> <img src="https://img.shields.io/badge/Express%20js-%23f5e90a?style=for-the-badge&logo=express&labelColor=black" alt="" style="max-width: 100%;"> 
 
 ## Tabla de contenidos
 
