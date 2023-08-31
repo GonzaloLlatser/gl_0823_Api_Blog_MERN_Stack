@@ -26,7 +26,7 @@ En esta Api, utilizando distintas herramientas, se puede crear, buscar, editar y
 Además, es posible subir y mostrar imágenes de la Base de datos.
 
 
-![image](../imagenes/readme/Database%20y%20Postman.png)
+![image](./imagenes/readme/Database%20y%20Postman.png)
 
 ### Acceso
 
